@@ -29,7 +29,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.cellId, for: indexPath) as! Cell
-        cell.listLB.text = movies[indexPath.row]
+        cell.listCell.textLabel?.text = movies[indexPath.row]
         return cell
     }
     

@@ -10,15 +10,14 @@ import SnapKit
 
 class Cell: UITableViewCell {
     static var cellId = "listCell"
-
-    let listLB: UILabel = {
-        let v = UILabel()
-        v.backgroundColor = .systemTeal
-        v.textColor = .white
-        v.textAlignment = .center
-        v.layer.cornerRadius = 5
-        v.layer.masksToBounds = true
-        return v
+    
+    let listCell: UITableViewCell = {
+        let cell = UITableViewCell()
+        cell.backgroundColor = .systemTeal
+        cell.layer.cornerRadius = 5
+        cell.layer.masksToBounds = true
+        cell.textLabel?.textAlignment = .center
+        return cell
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -31,8 +30,8 @@ class Cell: UITableViewCell {
     }
 
     func createCell() {
-        self.addSubview(listLB)
-        listLB.snp.makeConstraints { (make) in
+        self.addSubview(listCell)
+        listCell.snp.makeConstraints { (make) in
             make.top.left.equalTo(2)
             make.right.bottom.equalTo(-2)
         }
