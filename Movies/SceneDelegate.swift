@@ -20,13 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: windowScene)
         
-        let listVC = ListViewController()
-        let favoritesVC = FavouritesViewController()
-        let tabVC = UITabBarController()
+        let tabVC = AppTabBarController()
         
-        tabVC.setViewControllers([listVC, favoritesVC], animated: true)
-        
-        print(windowScene)
+        tabVC.setViewControllers(tabVC.viewControllers(), animated: true)
         
         window?.rootViewController = tabVC
         window?.makeKeyAndVisible()
