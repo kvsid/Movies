@@ -13,7 +13,6 @@ class AppTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         listVC.tabBarItem = UITabBarItem.init(title: "List", image: nil, tag: 0)
         favouritesVC.tabBarItem = UITabBarItem.init(title: "Favourites", image: nil, tag: 1)
     }

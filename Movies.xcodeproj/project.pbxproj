@@ -19,6 +19,7 @@
 		07B2E3D72570290C004BE535 /* AppTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2E3D52570290C004BE535 /* AppTabBarController.swift */; };
 		07B2E3D82570290C004BE535 /* AppTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B2E3D62570290C004BE535 /* AppTabBarController.xib */; };
 		07B2E3DF25704CCF004BE535 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2E3DE25704CCF004BE535 /* Cell.swift */; };
+		07B2E3E4257066C1004BE535 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2E3E3257066C1004BE535 /* MovieModel.swift */; };
 		A535478297BE14BC437964B5 /* Pods_Movies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E36BFB5137D21638414FC3B5 /* Pods_Movies.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		07B2E3D52570290C004BE535 /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
 		07B2E3D62570290C004BE535 /* AppTabBarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppTabBarController.xib; sourceTree = "<group>"; };
 		07B2E3DE25704CCF004BE535 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		07B2E3E3257066C1004BE535 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		31B01208292E1C53B61E9F22 /* Pods-Movies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movies.release.xcconfig"; path = "Target Support Files/Pods-Movies/Pods-Movies.release.xcconfig"; sourceTree = "<group>"; };
 		6DAFA504C604C8B04AD541FA /* Pods-Movies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movies.debug.xcconfig"; path = "Target Support Files/Pods-Movies/Pods-Movies.debug.xcconfig"; sourceTree = "<group>"; };
 		E36BFB5137D21638414FC3B5 /* Pods_Movies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Movies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +90,7 @@
 				0725388C256FEB0700FFECA6 /* Assets.xcassets */,
 				0725388E256FEB0700FFECA6 /* LaunchScreen.storyboard */,
 				07253891256FEB0700FFECA6 /* Info.plist */,
+				07B2E3E3257066C1004BE535 /* MovieModel.swift */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07B2E3E4257066C1004BE535 /* MovieModel.swift in Sources */,
 				07253884256FEB0400FFECA6 /* AppDelegate.swift in Sources */,
 				072538A1256FFBAC00FFECA6 /* ListViewController.swift in Sources */,
 				07B2E3D72570290C004BE535 /* AppTabBarController.swift in Sources */,
@@ -315,6 +319,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -369,6 +374,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
