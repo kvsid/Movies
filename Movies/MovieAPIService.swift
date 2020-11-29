@@ -7,8 +7,6 @@
 
 import Foundation
 
-//class MovieModel {
-
 struct Movie: Decodable {
     let originalTitle: String
     let posterPath: String
@@ -19,19 +17,6 @@ struct Movie: Decodable {
 struct Movies: Decodable {
     var results: [Movie]
 }
-
-//    public func movies() -> [Movie] {
-//        var movies: [Movie] = []
-//
-//        let data = rawData().data(using: .utf8)
-//
-//        if let data = data,
-//           let jsonMovies = try? JSONDecoder().decode(Movies.self, from: data) {
-//            movies = jsonMovies.results
-//        }
-//        return movies
-//    }
-//}
 
 class MovieAPIService {
     public static let shared = MovieAPIService()

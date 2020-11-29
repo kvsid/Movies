@@ -10,7 +10,7 @@ import SnapKit
 
 class Cell: UITableViewCell {
     static var cellId = "listCell"
-    
+
     let listCell: UITableViewCell = {
         let cell = UITableViewCell()
         cell.backgroundColor = .systemTeal
@@ -36,4 +36,6 @@ class Cell: UITableViewCell {
             make.right.bottom.equalTo(-2)
         }
     }
+
+//    https://image.tmdb.org/t/p/w500/vzec9kkOSE93tygyfOktedkeOQ.jpg
 }

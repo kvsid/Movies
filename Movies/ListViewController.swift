@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let movies = ["first movie", "second movie", "third movie", "fourth movie", "avatar", "Harry Potter", "Czech arthouse"]
-    
+    var movies: [Movie] = []
+
     lazy var listTB: UITableView = {
         let view = UITableView()
         view.rowHeight = 50
@@ -20,30 +20,30 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        print(MovieModel().movies()) // TODO: Remove me.
+
         MovieAPIService.shared.fetchMovies(from: .nowPlaying) { (result: Result<Movies, MovieAPIService.APIServiceError>) in
             switch result {
                 case .success(let movieResponse):
                     print(movieResponse.results)
+                    self.movies = movieResponse.results
                 case .failure(let error):
                     print(error.localizedDescription)
             }
         }
-        
+
         createTable()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         movies.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.cellId, for: indexPath) as! Cell
-        cell.listCell.textLabel?.text = movies[indexPath.row]
+        cell.listCell.textLabel?.text = movies[indexPath.row].originalTitle
         return cell
     }
-    
+
     func createTable() {
         self.listTB.delegate = self
         self.listTB.dataSource = self

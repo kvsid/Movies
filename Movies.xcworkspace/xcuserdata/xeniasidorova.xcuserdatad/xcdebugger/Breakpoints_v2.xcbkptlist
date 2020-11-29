@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D4B6B146-CFBD-4819-86B1-1C6244AD1F98"
+            uuid = "C9BD5249-619C-41A4-86AB-4EBCEA823851"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Movies/ListViewController.swift"
+            filePath = "Movies/AppTabBarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "styleBarItem(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

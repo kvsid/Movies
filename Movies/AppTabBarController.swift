@@ -13,11 +13,24 @@ class AppTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        listVC.tabBarItem = UITabBarItem.init(title: "List", image: nil, tag: 0)
-        favouritesVC.tabBarItem = UITabBarItem.init(title: "Favourites", image: nil, tag: 1)
+        listVC.tabBarItem = UITabBarItem(title: "List", image: nil, tag: 0)
+        favouritesVC.tabBarItem = UITabBarItem(title: "Favourites", image: nil, tag: 1)
+
+        styleBarItem(listVC.tabBarItem)
+        styleBarItem(favouritesVC.tabBarItem)
     }
-    
+
     func viewControllers() -> [UIViewController] {
         return [listVC, favouritesVC]
+    }
+
+    private func styleBarItem(_ item: UIBarItem) {
+        let attributes: [NSMutableAttributedString.Key: Any] = [
+            .font: UIFont(name: "Helvetica", size: CGFloat(15.0))!,
+            .foregroundColor: UIColor.systemTeal,
+            .paragraphStyle: NSMutableParagraphStyle().alignment = .center
+        ]
+
+        item.setTitleTextAttributes(attributes, for: .normal)
     }
 }
