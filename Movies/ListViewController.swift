@@ -20,6 +20,17 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        print(MovieModel().movies()) // TODO: Remove me.
+        MovieAPIService.shared.fetchMovies(from: .nowPlaying) { (result: Result<Movies, MovieAPIService.APIServiceError>) in
+            switch result {
+                case .success(let movieResponse):
+                    print(movieResponse.results)
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+        
         createTable()
     }
 

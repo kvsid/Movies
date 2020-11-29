@@ -6,58 +6,118 @@
 //
 
 import Foundation
-class MovieModel {
 
-    struct Movie: Decodable {
-        let original_title: String
-        let poster_path: String
-        let release_date: String // Date??
-        let overview: String
-    }
+//class MovieModel {
 
-    struct Movies: Decodable {
-        var results: [Movie]
-    }
+struct Movie: Decodable {
+    let originalTitle: String
+    let posterPath: String
+    let releaseDate: Date // Date??
+    let overview: String
+}
 
-    public func movies() -> [Movie] {
-        var movies: [Movie] = []
-        
-        let data = rawData().data(using: .utf8)
+struct Movies: Decodable {
+    var results: [Movie]
+}
 
-        if let data = data,
-           let jsonMovies = try? JSONDecoder().decode(Movies.self, from: data) {
-            movies = jsonMovies.results
-        }
-        return movies
+//    public func movies() -> [Movie] {
+//        var movies: [Movie] = []
+//
+//        let data = rawData().data(using: .utf8)
+//
+//        if let data = data,
+//           let jsonMovies = try? JSONDecoder().decode(Movies.self, from: data) {
+//            movies = jsonMovies.results
+//        }
+//        return movies
+//    }
+//}
+
+class MovieAPIService {
+    public static let shared = MovieAPIService()
+    private init() {}
+    private let urlSession = URLSession.shared
+    private let baseURL = URL(string: "https://api.themoviedb.org/3")!
+    private let apiKey = "85eb5cf47b27b2865521dc4c0122cde9"
+    private let jsonDecoder: JSONDecoder = {
+       let jsonDecoder = JSONDecoder()
+       jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+       let dateFormatter = DateFormatter()
+       dateFormatter.dateFormat = "yyyy-mm-dd"
+       jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
+       return jsonDecoder
+    }()
+
+    enum Endpoint: String, CaseIterable {
+//        CustomStringConvertible
+        case nowPlaying = "now_playing"
+        case upcoming
+        case popular
+        case topRated = "top_rated"
     }
     
-    private func rawData() -> String {
-        return """
-        {
-          "total_results": 10000,
-          "page": 2,
-          "total_pages": 500,
-          "results": [
-            {
-              "original_title": "Come Play",
-              "poster_path": "/e98dJUitAoKLwmzjQ0Yxp1VQrnU.jpg",
-              "video": false,
-              "vote_average": 6.8,
-              "overview": "A lonely young boy feels different from everyone else. Desperate for a friend, he seeks solace and refuge in his ever-present cell phone and tablet. When a mysterious creature uses the boy’s devices against him to break into our world, his parents must fight to save their son from the monster beyond the screen.",
-              "release_date": "2020-10-28",
-              "title": "Come Play",
-              "popularity": 455.514,
-              "adult": false,
-              "backdrop_path": "/gkvOmVXdukAwpG8LjTaHo2l2cWU.jpg",
-              "id": 571384,
-              "genre_ids": [
-                27
-              ],
-              "vote_count": 71,
-              "original_language": "en"
-            }
-          ]
+    public enum APIServiceError: Error {
+        case apiError
+        case invalidEndpoint
+        case invalidResponse
+        case noData
+        case decodeError
+    }
+    
+    public func fetchMovies(from endpoint: Endpoint, result: @escaping (Result<Movies, APIServiceError>) -> Void) {
+        let movieURL = baseURL
+            .appendingPathComponent("movie")
+            .appendingPathComponent(endpoint.rawValue)
+        fetchResources(url: movieURL, completion: result)
+    }
+    
+    private func fetchResources<T: Decodable>(url: URL, completion: @escaping (Result<T, APIServiceError>) -> Void) {
+        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            completion(.failure(.invalidEndpoint))
+            return
         }
-        """
+        
+        let queryItems = [URLQueryItem(name: "api_key", value: apiKey)]
+        urlComponents.queryItems = queryItems
+        
+        guard let url = urlComponents.url else {
+            completion(.failure(.invalidEndpoint))
+            return
+        }
+        
+        urlSession.dataTask(with: url) { (result)  in
+            switch result {
+                case .success(let (response, data)):
+                    guard let statusCode = (response as? HTTPURLResponse)?.statusCode, 200..<299 ~= statusCode else {
+                        completion(.failure(.invalidResponse))
+                        return
+                    }
+                    do {
+                        let values = try self.jsonDecoder.decode(T.self, from: data)
+                        completion(.success(values))
+                    } catch {
+                        completion(.failure(.decodeError))
+                    }
+                case .failure(_):
+                    completion(.failure(.apiError))
+                }
+         }.resume()
+    }
+}
+
+extension URLSession {
+    func dataTask(with url: URL, result: @escaping (Result<(URLResponse, Data), Error>) -> Void) -> URLSessionDataTask {
+        return dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                result(.failure(error))
+                return
+            }
+            guard let response = response, let data = data else {
+                let error = NSError(domain: "error", code: 0, userInfo: nil)
+                result(.failure(error))
+                return
+            }
+            result(.success((response, data)))
+        }
     }
 }
