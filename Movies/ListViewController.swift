@@ -13,7 +13,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     lazy var listTB: UITableView = {
         let view = UITableView()
-        view.rowHeight = 50
+        view.rowHeight = 150
         view.separatorStyle = .none
         return view
     }()
@@ -24,7 +24,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         MovieAPIService.shared.fetchMovies(from: .nowPlaying) { (result: Result<Movies, MovieAPIService.APIServiceError>) in
             switch result {
                 case .success(let movieResponse):
-                    print(movieResponse.results)
                     self.movies = movieResponse.results
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -40,7 +39,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.cellId, for: indexPath) as! Cell
-        cell.listCell.textLabel?.text = movies[indexPath.row].originalTitle
+        cell.model = movies[indexPath.row]
+        cell.createCell()
         return cell
     }
 

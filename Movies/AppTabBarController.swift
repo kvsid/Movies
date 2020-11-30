@@ -27,10 +27,11 @@ class AppTabBarController: UITabBarController {
     private func styleBarItem(_ item: UIBarItem) {
         let attributes: [NSMutableAttributedString.Key: Any] = [
             .font: UIFont(name: "Helvetica", size: CGFloat(15.0))!,
-            .foregroundColor: UIColor.systemTeal,
+            .foregroundColor: UIColor.white,
             .paragraphStyle: NSMutableParagraphStyle().alignment = .center
         ]
 
         item.setTitleTextAttributes(attributes, for: .normal)
     }
 }
+
