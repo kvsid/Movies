@@ -10,10 +10,6 @@ import UIKit
 class Image: UIImageView {
     private let baseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
 
-    override init(image: UIImage?, highlightedImage: UIImage?) {
-        super.init(image: image, highlightedImage: highlightedImage)
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
